@@ -16,8 +16,8 @@ class DotFormsDataProvider implements FormDataProviderInterface
     public function addData(array $result): array
     {
         $schema = $this->schemaFactory->get($result['tableName']);
-        if ($typeField = $schema->getSubSchemaDivisorField()) {
-            $schema = $schema->getSubSchema((string) $result['databaseRow'][$typeField->getName()] ?: (string) $typeField->getConfiguration()['items'][0]['value']);
+        if ($typeField = $schema->getSubSchemaTypeInformation()) {
+            $schema = $schema->getSubSchema((string) $result['databaseRow'][$typeField->getFieldName()]);
         }
         // Check
         foreach ($schema->getFields(fn ($field) => str_contains($field->getName(), '.')) as $field) {
