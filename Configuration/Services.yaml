@@ -8,6 +8,10 @@ services:
       resource: '../Classes/*'
       exclude: '../Classes/Domain/Model/*'
 
+   # Override core DefaultTcaSchema.
+   TYPO3\CMS\Core\Database\Schema\DefaultTcaSchema:
+      class: WEBcoast\DotForms\Database\Schema\TcaSchemaOverride
+
    # Configure data processor
    WEBcoast\DotForms\DataProcessing\DotFormsDataProcessor:
       tags:
