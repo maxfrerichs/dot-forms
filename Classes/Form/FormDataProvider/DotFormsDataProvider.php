@@ -7,6 +7,7 @@ namespace WEBcoast\DotForms\Form\FormDataProvider;
 
 
 use TYPO3\CMS\Backend\Form\FormDataProviderInterface;
+use TYPO3\CMS\Core\Schema\Exception\InvalidSchemaTypeException;
 use TYPO3\CMS\Core\Schema\TcaSchemaFactory;
 
 class DotFormsDataProvider implements FormDataProviderInterface
@@ -16,8 +17,11 @@ class DotFormsDataProvider implements FormDataProviderInterface
     public function addData(array $result): array
     {
         $schema = $this->schemaFactory->get($result['tableName']);
-        if ($typeField = $schema->getSubSchemaTypeInformation()) {
+        try {
+            $typeField = $schema->getSubSchemaTypeInformation();
             $schema = $schema->getSubSchema((string) $result['databaseRow'][$typeField->getFieldName()]);
+        } catch(InvalidSchemaTypeException $e) {
+            // do nothing for now
         }
         // Check
         foreach ($schema->getFields(fn ($field) => str_contains($field->getName(), '.')) as $field) {
