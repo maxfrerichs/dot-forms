@@ -15,12 +15,10 @@ class RemoveDotFieldsFromSearchListener
     {
         $tca = $event->getTCA();
         foreach ($tca as $tableName => $tableConfig) {
-            if ($tableConfig['ctrl']['searchFields'] ?? false) {
-                $searchFields = explode(',', $tableConfig['ctrl']['searchFields']);
-                $searchFields = array_filter($searchFields, static function ($field) {
-                    return !str_contains(trim($field), '.');
-                });
-                $tca[$tableName]['ctrl']['searchFields'] = implode(',', $searchFields);
+            foreach (array_keys($tableConfig['columns'] ?? []) as $fieldName) {
+                if (str_contains((string)$fieldName, '.')) {
+                    $tca[$tableName]['columns'][$fieldName]['config']['searchable'] = false;
+                }
             }
         }
 
