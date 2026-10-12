@@ -105,11 +105,11 @@ class DataHandler extends \TYPO3\CMS\Core\DataHandling\DataHandler
         parent::updateDB($table, $uid, $fieldArray, $recordPid);
     }
 
-    public function insertDB($table, $id, $fieldArray, $_ = false, $suggestedUid = 0): ?int
+    public function insertDB($table, $id, $fieldArray, $suggestedUid = 0): ?int
     {
         $fieldArray = $this->processDotFields($table, $id, $fieldArray, 'new');
 
-        return parent::insertDB($table, $id, $fieldArray, $_, $suggestedUid);
+        return parent::insertDB($table, $id, $fieldArray, $suggestedUid);
     }
 
     protected function processDotFields($table, $id, $fieldArray, $status): array
