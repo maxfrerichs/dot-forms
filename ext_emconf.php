@@ -3,11 +3,11 @@
 $EM_CONF[$_EXTKEY] = [
     'title' => 'Dot Forms',
     'description' => 'Create virtual fields just like flex forms, but with pure TCA.',
-    'version' => '1.0.5',
+    'version' => '2.0.0',
     'category' => 'be',
     'constraints' => [
         'depends' => [
-            'typo3' => '12.4.0-12.4.99',
+            'typo3' => '14.3.0-14.99.99',
         ],
     ],
     'state' => 'stable',
@@ -16,7 +16,7 @@ $EM_CONF[$_EXTKEY] = [
     'author_company' => 'WEBcoast',
     'autoload' => [
         'psr-4' => [
-            'Webcoast\\DotForms\\' => 'Classes',
+            'WEBcoast\\DotForms\\' => 'Classes',
         ],
     ],
 ];
