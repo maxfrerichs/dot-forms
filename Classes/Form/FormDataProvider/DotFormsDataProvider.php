@@ -8,6 +8,7 @@ namespace WEBcoast\DotForms\Form\FormDataProvider;
 
 use TYPO3\CMS\Backend\Form\FormDataProviderInterface;
 use TYPO3\CMS\Core\Schema\Exception\InvalidSchemaTypeException;
+use TYPO3\CMS\Core\Schema\Exception\UndefinedSchemaException;
 use TYPO3\CMS\Core\Schema\TcaSchemaFactory;
 
 class DotFormsDataProvider implements FormDataProviderInterface
@@ -20,7 +21,7 @@ class DotFormsDataProvider implements FormDataProviderInterface
         try {
             $typeField = $schema->getSubSchemaTypeInformation();
             $schema = $schema->getSubSchema((string) $result['databaseRow'][$typeField->getFieldName()]);
-        } catch(InvalidSchemaTypeException $e) {
+        } catch(InvalidSchemaTypeException | UndefinedSchemaException $e) {
             // do nothing for now
         }
         // Check
